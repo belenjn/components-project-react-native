@@ -1,11 +1,34 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import React, {useRef} from 'react';
+import {Animated, Button, StyleSheet, View} from 'react-native';
 
 export const Animation101Screen = () => {
+  const opacity = useRef(new Animated.Value(0)).current;
+
+  const fadeIn = () => {
+    Animated.timing(opacity, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const fadeOut = () => {
+    Animated.timing(opacity, {
+      toValue: 0,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.purpleBox} />
+      <Animated.View
+        style={{...styles.purpleBox, opacity: opacity, marginBottom: 20}}
+      />
+      <Button title="Fade In" onPress={fadeIn} />
+      <Button title="Fade Out" onPress={fadeOut} />
     </View>
   );
 };
