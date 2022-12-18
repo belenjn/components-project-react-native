@@ -19,4 +19,9 @@ export const menuItems = [
     icon: 'alert-circle-outline',
     component: 'AlertScreen',
   },
+  {
+    name: 'Texts',
+    icon: 'document-text-outline',
+    component: 'TextInputScreen',
+  },
 ];
