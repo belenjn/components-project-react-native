@@ -5,14 +5,22 @@ import {styles} from '../theme/appTheme';
 
 export const AlertScreen = () => {
   const showAlert = () => {
-    Alert.alert('This is an alert', 'My alert message', [
+    Alert.alert(
+      'This is an alert',
+      'My alert message',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'destructive',
+        },
+        {text: 'OK', onPress: () => console.log('OK Pressed')},
+      ],
       {
-        text: 'Cancel',
-        onPress: () => console.log('Cancel Pressed'),
-        style: 'destructive',
+        cancelable: true,
+        onDismiss: () => console.log('onDismiss'),
       },
-      {text: 'OK', onPress: () => console.log('OK Pressed')},
-    ]);
+    );
   };
 
   return (
