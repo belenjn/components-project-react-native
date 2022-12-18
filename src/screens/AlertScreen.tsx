@@ -29,6 +29,7 @@ export const AlertScreen = () => {
       'This is the text',
       (value: string) => console.log('info: ', value),
       'plain-text',
+      //   'hi world', Esto es el valor por defecto,
     );
   };
 
