@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
@@ -11,12 +12,38 @@ export const TextInputScreen = () => {
     phone: '',
   });
 
+  const onChange = (value: string, field: string) => {
+    setForm({
+      ...form,
+      [field]: value,
+    });
+  };
+
   return (
     <View style={styles.globalMargin}>
       <HeaderTitle title="TextInputs" />
-      <TextInput style={stylesScreen.inputStyle} />
-      <TextInput style={stylesScreen.inputStyle} />
-      <TextInput style={stylesScreen.inputStyle} />
+      <TextInput
+        style={stylesScreen.inputStyle}
+        placeholder="Put your name"
+        autoCorrect={false}
+        autoCapitalize="words"
+        onChangeText={value => onChange(value, 'name')}
+      />
+      <TextInput
+        style={stylesScreen.inputStyle}
+        placeholder="Put your email"
+        autoCorrect={false}
+        onChangeText={value => onChange(value, 'email')}
+        keyboardType="email-address"
+        keyboardAppearance="dark"
+      />
+      <TextInput
+        style={stylesScreen.inputStyle}
+        placeholder="Put your phone"
+        autoCorrect={false}
+        onChangeText={value => onChange(value, 'phone')}
+        keyboardType="phone-pad"
+      />
       <HeaderTitle title={JSON.stringify(form, null, 3)} />
     </View>
   );
