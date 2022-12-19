@@ -77,7 +77,9 @@ export const SectionListScreen = () => {
         keyExtractor={(item, index) => item + index}
         ListHeaderComponent={() => <HeaderTitle title="Section List" />}
         ListFooterComponent={() => (
-          <HeaderTitle title={'Total de casas' + ' ' + casas.length} />
+          <View style={{marginBottom: 100}}>
+            <HeaderTitle title={'Total de casas' + ' ' + casas.length} />
+          </View>
         )}
         renderItem={({item}) => <Text>{item}</Text>}
         stickySectionHeadersEnabled
