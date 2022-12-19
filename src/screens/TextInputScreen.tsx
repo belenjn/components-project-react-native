@@ -9,11 +9,13 @@ import {
   TouchableWithoutFeedback,
   View,
   Keyboard,
+  Text,
 } from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
 import {HeaderTitle} from '../components/HeaderTitle';
 import {styles} from '../theme/appTheme';
 import {useForm} from '../hooks/useForm';
+import {CustomSwitch} from '../components/CustomSwitch';
 
 export const TextInputScreen = () => {
   const {form, onChange} = useForm({
@@ -45,6 +47,14 @@ export const TextInputScreen = () => {
               keyboardType="email-address"
               keyboardAppearance="dark"
             />
+
+            <View style={stylesScreen.switchContainer}>
+              <Text style={stylesScreen.switchText}>Subscribe:</Text>
+              <CustomSwitch
+                isOn={form.isSucribed}
+                onChange={value => onChange(value, 'isSucribed')}
+              />
+            </View>
             <HeaderTitle title={JSON.stringify(form, null, 3)} />
 
             <HeaderTitle title={JSON.stringify(form, null, 3)} />
@@ -73,5 +83,14 @@ const stylesScreen = StyleSheet.create({
     height: 50,
     paddingHorizontal: 10,
     marginVertical: 10,
+  },
+  switchContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  switchText: {
+    fontSize: 25,
   },
 });
