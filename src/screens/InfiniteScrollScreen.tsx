@@ -1,7 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {HeaderTitle} from '../components/HeaderTitle';
 import {styles} from '../theme/appTheme';
 import {useState} from 'react';
@@ -15,11 +22,18 @@ export const InfiniteScrollScreen = () => {
     for (let i = 0; i < 5; i++) {
       newArray[i] = numbers.length + i;
     }
-    setNumbers([...numbers, ...newArray]);
+    setTimeout(() => {
+      setNumbers([...numbers, ...newArray]);
+    }, 1000);
   };
 
   const renderItem = (item: number) => {
-    return <Text style={stylesScroll.textItem}>{item}</Text>;
+    return (
+      <Image
+        source={{uri: `https://picsum.photos/id/${item}/500/400`}}
+        style={{width: '100%', height: 400}}
+      />
+    );
   };
   return (
     <View style={{...styles.globalMargin, flex: 1}}>
@@ -30,6 +44,17 @@ export const InfiniteScrollScreen = () => {
         ListHeaderComponent={<HeaderTitle title="Infinite Scroll" />}
         onTouchEnd={loadMore}
         onEndReachedThreshold={0.5} // el 0.5 es la mitad de la screen
+        ListFooterComponent={() => (
+          <View
+            style={{
+              height: 150,
+              width: '100%',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <ActivityIndicator size={25} color="#5856d6" />
+          </View>
+        )}
       />
     </View>
   );
