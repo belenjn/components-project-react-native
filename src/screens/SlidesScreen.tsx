@@ -1,9 +1,13 @@
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable react/self-closing-comp */
+/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
-import {useState} from 'react';
+import {useState, useRef} from 'react';
 import {
+  Animated,
   Dimensions,
   Image,
   ImageSourcePropType,
@@ -12,6 +16,10 @@ import {
   Text,
   View,
 } from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/Ionicons';
+import {useAnimation} from '../hooks/useAnimation';
+import {StackScreenProps} from '@react-navigation/stack';
 
 const {width, height} = Dimensions.get('window');
 
@@ -39,8 +47,13 @@ export const items: Slide[] = [
   },
 ];
 
-export const SlidesScreen = () => {
+interface Props extends StackScreenProps<any, any> {}
+
+export const SlidesScreen = ({navigation}: Props) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const {opacity, fadeIn} = useAnimation();
+  const isVisible = useRef(false);
+
   const renderItem = (item: Slide) => {
     return (
       <View
@@ -75,18 +88,60 @@ export const SlidesScreen = () => {
         layout="default"
         onSnapToItem={index => {
           setActiveIndex(index);
+          if (index === 2) {
+            isVisible.current = true;
+            fadeIn();
+          }
         }}
       />
-      <Pagination
-        dotsLength={items.length}
-        activeDotIndex={activeIndex}
-        dotStyle={{
-          width: 10,
-          height: 10,
-          borderRadius: 5,
-          backgroundColor: '#5856d6',
-        }}
-      />
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          marginHorizontal: 20,
+          alignItems: 'center',
+        }}>
+        <Pagination
+          dotsLength={items.length}
+          activeDotIndex={activeIndex}
+          dotStyle={{
+            width: 10,
+            height: 10,
+            borderRadius: 5,
+            backgroundColor: '#5856d6',
+          }}
+        />
+        <Animated.View
+          style={{
+            opacity,
+          }}>
+          <TouchableOpacity
+            style={{
+              flexDirection: 'row',
+              backgroundColor: '#5856d6',
+              width: 120,
+              height: 50,
+              borderRadius: 10,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+            activeOpacity={0.8}
+            onPress={() => {
+              if (isVisible.current) {
+                navigation.navigate('HomeScreen');
+              }
+            }}>
+            <Text
+              style={{
+                fontSize: 20,
+                color: 'white',
+              }}>
+              Enter
+            </Text>
+            <Icon name="chevron-forward-outline" color="white" size={30} />
+          </TouchableOpacity>
+        </Animated.View>
+      </View>
     </SafeAreaView>
   );
 };
