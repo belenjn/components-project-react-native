@@ -7,6 +7,7 @@ import {
   Image,
   ImageSourcePropType,
   SafeAreaView,
+  StyleSheet,
   Text,
   View,
 } from 'react-native';
@@ -56,6 +57,8 @@ export const SlidesScreen = () => {
             resizeMode: 'center',
           }}
         />
+        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.subtitle}>{item.desc}</Text>
       </View>
     );
   };
@@ -72,3 +75,15 @@ export const SlidesScreen = () => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#5856d6',
+    marginBottom: 10,
+  },
+  subtitle: {
+    fontSize: 16,
+  },
+});
