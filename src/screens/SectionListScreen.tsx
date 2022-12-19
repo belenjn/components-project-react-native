@@ -74,6 +74,7 @@ export const SectionListScreen = () => {
       <SectionList
         sections={casas}
         keyExtractor={(item, index) => item + index}
+        ListHeaderComponent={() => <HeaderTitle title="Section List" />}
         renderItem={({item}) => <Text>{item}</Text>}
         stickySectionHeadersEnabled
         renderSectionHeader={({section}) => (
