@@ -3,7 +3,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, { useContext } from 'react';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import {useState, useRef} from 'react';
 import {
@@ -20,6 +20,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useAnimation} from '../hooks/useAnimation';
 import {StackScreenProps} from '@react-navigation/stack';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
 
 const {width, height} = Dimensions.get('window');
 
@@ -50,6 +51,9 @@ export const items: Slide[] = [
 interface Props extends StackScreenProps<any, any> {}
 
 export const SlidesScreen = ({navigation}: Props) => {
+  const {
+    theme: {colors},
+  } = useContext(ThemeContext);
   const [activeIndex, setActiveIndex] = useState(0);
   const {opacity, fadeIn} = useAnimation();
   const isVisible = useRef(false);
@@ -59,7 +63,7 @@ export const SlidesScreen = ({navigation}: Props) => {
       <View
         style={{
           flex: 1,
-          backgroundColor: 'white',
+          backgroundColor: colors.background,
           borderRadius: 5,
           padding: 40,
           justifyContent: 'center',
@@ -73,7 +77,7 @@ export const SlidesScreen = ({navigation}: Props) => {
           }}
         />
         <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.subtitle}>{item.desc}</Text>
+        <Text style={{...styles.subtitle, color: colors.text}}>{item.desc}</Text>
       </View>
     );
   };
