@@ -7,25 +7,50 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {ThemeContext} from '../context/themeContext/ThemeContext';
 
 export const ChangeThemeScreen = () => {
-  const {setDarkTheme} = useContext(ThemeContext);
+  const {
+    setDarkTheme,
+    setLightTheme,
+    theme: {colors},
+  } = useContext(ThemeContext);
   return (
     <View style={styles.globalMargin}>
       <HeaderTitle title="Themes" />
-      <TouchableOpacity
-        onPress={setDarkTheme}
-        activeOpacity={0.8}
+      <View
         style={{
-          backgroundColor: '#5856d6',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: 150,
-          height: 50,
-          borderRadius: 20,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
         }}>
-        <Text style={{color: 'white', textAlign: 'center', fontSize: 18}}>
-          Change theme
-        </Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          onPress={setLightTheme}
+          activeOpacity={0.8}
+          style={{
+            backgroundColor: colors.primary,
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: 150,
+            height: 50,
+            borderRadius: 20,
+          }}>
+          <Text style={{color: 'white', textAlign: 'center', fontSize: 18}}>
+            Light
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={setDarkTheme}
+          activeOpacity={0.8}
+          style={{
+            backgroundColor: colors.primary,
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: 150,
+            height: 50,
+            borderRadius: 20,
+          }}>
+          <Text style={{color: 'white', textAlign: 'center', fontSize: 18}}>
+            Dark
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
